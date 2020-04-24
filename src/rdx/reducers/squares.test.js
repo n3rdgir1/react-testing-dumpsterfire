@@ -1,5 +1,5 @@
 import squares from './squares';
-import { UPDATE, SQUARE } from '../actions/squares';
+import { UPDATE, SQUARE } from '../constants';
 
 describe('squares', () => {
   it('has default squares', () => {

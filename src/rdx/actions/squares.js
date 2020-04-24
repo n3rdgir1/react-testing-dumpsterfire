@@ -1,6 +1,6 @@
-export const SQUARE = 'SQUARE';
-export const UPDATE = 'UPDATE';
+import { UPDATE, SQUARE } from '../constants';
 
+// eslint-disable-next-line import/prefer-default-export
 export const selectSquare = (square, value) => ({
   type: UPDATE,
   name: SQUARE,
