@@ -1,3 +1,4 @@
 import { combineReducers } from 'redux';
+import squares from './squares';
 
-export default combineReducers({ hello: () => 'world' });
+export default combineReducers({ squares });

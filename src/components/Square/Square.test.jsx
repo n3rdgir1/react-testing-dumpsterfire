@@ -9,4 +9,22 @@ describe('Square', () => {
 
     expect(getByTestId('square')).toHaveTextContent(value);
   });
+
+  it('updates the value on click', () => {
+    let value = 'starting value';
+    const newValue = 'new vaue';
+
+    const component = () => (
+      <Square
+        value={value}
+        onClick={() => { value = newValue; }}
+      />
+    );
+    const { getByTestId, rerender } = render(component());
+
+    getByTestId('square').click();
+    rerender(component());
+
+    expect(getByTestId('square')).toHaveTextContent(newValue);
+  });
 });
