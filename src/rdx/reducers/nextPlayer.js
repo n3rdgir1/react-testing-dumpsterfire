@@ -3,6 +3,7 @@ const nextPlayer = (state = 'X', action = {}) => {
     return state;
   }
 
+  console.log('nextPlayer');
   switch (action.type) {
     case 'UPDATE':
       return state === 'X' ? 'O' : 'X';
