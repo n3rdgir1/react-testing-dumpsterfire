@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Square from '../Square/Square';
 import { selectSquare } from '../../rdx/actions/squares';
-import { calculateWinner } from '../../rdx/actions/winner';
+import useCalculateWinner from '../../hooks/useCalculateWinner';
 
 export const BoardComponent = ({
-  squares, handleUpdateSquare, nextPlayer, handleCalculateWinner, winner,
+  squares, handleUpdateSquare, nextPlayer,
 }) => {
-  useEffect(() => {
-    handleCalculateWinner(squares);
-  }, [handleCalculateWinner, squares]);
+  const winner = useCalculateWinner(squares);
 
   const updateSquare = (index) => {
     if (!winner) {
@@ -41,12 +39,10 @@ export const BoardComponent = ({
 const mapStateToProps = (state) => ({
   squares: state.squares,
   nextPlayer: state.nextPlayer,
-  winner: state.winner,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleUpdateSquare: (index, value) => dispatch(selectSquare(index, value)),
-  handleCalculateWinner: (squares) => dispatch(calculateWinner(squares)),
 });
 
 export default connect(

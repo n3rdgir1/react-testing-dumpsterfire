@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Board from '../Board/Board';
-import { calculateWinner } from '../../rdx/actions/winner';
+import useCalculateWinner from '../../hooks/useCalculateWinner';
 
 export const GameComponent = ({
-  handleCalculateWinner, squares, nextPlayer, winner,
+  squares, nextPlayer,
 }) => {
-  useEffect(() => {
-    handleCalculateWinner(squares);
-  }, [handleCalculateWinner, squares]);
+  const winner = useCalculateWinner(squares);
 
   const status = winner ? `Winner: ${winner}` : `Next player: ${nextPlayer}`;
 
@@ -31,11 +29,7 @@ const mapStateToProps = (state) => ({
   winner: state.winner,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handleCalculateWinner: (squares) => dispatch(calculateWinner(squares)),
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  {},
 )(GameComponent);

@@ -5,9 +5,7 @@ import { GameComponent } from './Game';
 jest.mock('../Board/Board');
 
 describe('Game', () => {
-  const calculateWinner = jest.fn();
   let squares = Array(9).fill('').map((_, i) => i);
-  let winner = null;
   const nextPlayer = 'upNext';
 
   let rerender;
@@ -16,10 +14,8 @@ describe('Game', () => {
 
   const component = () => (
     <GameComponent
-      handleCalculateWinner={calculateWinner}
       squares={squares}
       nextPlayer={nextPlayer}
-      winner={winner}
     />
   );
 
@@ -31,20 +27,6 @@ describe('Game', () => {
     expect(getByTestId('board')).toBeInTheDocument();
   });
 
-  describe('calculateing the winner', () => {
-    it('calculates on load', () => {
-      expect(calculateWinner).toHaveBeenCalledWith(squares);
-    });
-
-    it('calculates on square change', () => {
-      calculateWinner.mockClear();
-      squares = Array(9).fill('changed');
-
-      rerender(component());
-      expect(calculateWinner).toHaveBeenCalledWith(squares);
-    });
-  });
-
   describe('When no winner', () => {
     it('renders the next player', () => {
       expect(queryByText(`Next player: ${nextPlayer}`)).toBeInTheDocument();
@@ -53,10 +35,10 @@ describe('Game', () => {
 
   describe('When winner', () => {
     it('renders the winner', () => {
-      winner = 'someone';
+      squares = ['x', 'x', 'x', null, null, null, null, null, null];
       rerender(component());
 
-      expect(queryByText(`Winner: ${winner}`)).toBeInTheDocument();
+      expect(queryByText('Winner: x')).toBeInTheDocument();
     });
   });
 });
